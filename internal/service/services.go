@@ -7,10 +7,12 @@ import (
 
 type Services struct {
 	service.User
+	service.Auth
 }
 
 func NewServices(cfg *config.Config) *Services {
 	return &Services{
 		User: NewUser(cfg),
+		Auth: NewAuth(cfg),
 	}
 }

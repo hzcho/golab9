@@ -11,4 +11,6 @@ type User interface {
 	Add(ctx context.Context, user models.AddUser) (uint64, error)
 	Update(ctx context.Context, user models.UpdateUser) (models.User, error)
 	Delete(ctx context.Context, id uint64) (bool, error)
+
+	SetToken(token string) error
 }

@@ -7,10 +7,12 @@ import (
 
 type Usecases struct {
 	usecase.User
+	usecase.Auth
 }
 
 func NewUsecases(services *service.Services) *Usecases {
 	return &Usecases{
 		User: NewUser(services.User),
+		Auth: NewAuth(services.Auth, services.User),
 	}
 }

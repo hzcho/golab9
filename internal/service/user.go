@@ -15,6 +15,7 @@ import (
 type User struct {
 	client *http.Client
 	addr   string
+	token  string
 }
 
 func NewUser(cfg *config.Config) *User {
@@ -46,6 +47,8 @@ func (u *User) Get(ctx context.Context, filter models.GetUserFilter) ([]models.U
 	if err != nil {
 		return nil, err
 	}
+
+	req.Header.Add("Authorization", "Bearer "+u.token)
 
 	resp, err := u.client.Do(req)
 	if err != nil {
@@ -103,6 +106,7 @@ func (u *User) Add(ctx context.Context, user models.AddUser) (uint64, error) {
 	if err != nil {
 		return 0, err
 	}
+	req.Header.Add("Authorization", "Bearer "+u.token)
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := u.client.Do(req)
@@ -137,6 +141,7 @@ func (u *User) Update(ctx context.Context, user models.UpdateUser) (models.User,
 	if err != nil {
 		return models.User{}, err
 	}
+	req.Header.Add("Authorization", "Bearer "+u.token)
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := u.client.Do(req)
@@ -165,6 +170,8 @@ func (u *User) Delete(ctx context.Context, id uint64) (bool, error) {
 		return false, err
 	}
 
+	req.Header.Add("Authorization", "Bearer "+u.token)
+
 	resp, err := u.client.Do(req)
 	if err != nil {
 		return false, err
@@ -176,4 +183,10 @@ func (u *User) Delete(ctx context.Context, id uint64) (bool, error) {
 	}
 
 	return true, nil
+}
+
+func (u *User) SetToken(token string) error {
+	u.token = token
+
+	return nil
 }

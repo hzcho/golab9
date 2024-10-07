@@ -20,7 +20,7 @@ func NewUser(userUseCase usecase.User) *User {
 func (u *User) Display(ctx context.Context) {
 	for {
 		var n int
-		fmt.Println("\n введите номер операции:" +
+		fmt.Println("\n\n введите номер операции:" +
 			"\n 1. получить пользователей по фильтру" +
 			"\n 2. получить пользователя по id" +
 			"\n 3. создать пользователя user" +

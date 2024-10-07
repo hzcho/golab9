@@ -4,10 +4,12 @@ import "golab9/internal/usecase"
 
 type Views struct {
 	*User
+	*Auth
 }
 
 func NewViews(usecases *usecase.Usecases) *Views {
 	return &Views{
-		NewUser(usecases.User),
+		User: NewUser(usecases.User),
+		Auth: NewAuth(usecases.Auth),
 	}
 }
